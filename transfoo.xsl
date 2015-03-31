@@ -36,8 +36,8 @@
             <!-- see the following for an example http://library.princeton.edu/departments/tsd/metadoc/mods/relateditem.html           -->
             <xsl:attribute name="type">host</xsl:attribute>
             <xsl:element name="typeOfResource">
-                <xsl:attribute name="collection">yes</xsl:attribute> still image</xsl:element>
-            <xsl:element name="titletInfo">
+                <xsl:attribute name="collection">yes</xsl:attribute>still image</xsl:element>
+            <xsl:element name="titleInfo">
                 <xsl:attribute name="type">uniform</xsl:attribute>
                 <xsl:attribute name="authority">?????</xsl:attribute>
                 <xsl:value-of select="digital-collection"/>
@@ -80,10 +80,10 @@
             <xsl:element name="role">
                 <xsl:element name="roleTerm">
                     <xsl:attribute name="type">code</xsl:attribute>
-                    <xsl:attribute name="authority">marcrelator</xsl:attribute> pht </xsl:element>
+                    <xsl:attribute name="authority">marcrelator</xsl:attribute>pht</xsl:element>
                 <xsl:element name="roleTerm">
                     <xsl:attribute name="type">text</xsl:attribute>
-                    <xsl:attribute name="authority">marcrelator</xsl:attribute> Photographer
+                    <xsl:attribute name="authority">marcrelator</xsl:attribute>Photographer
                 </xsl:element>
             </xsl:element>
         </xsl:element>
