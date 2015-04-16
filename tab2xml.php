@@ -1,5 +1,5 @@
 <?php
-//dummy comment
+
 class Tab2xml {
 
     private $args;
