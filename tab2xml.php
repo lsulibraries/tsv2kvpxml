@@ -40,7 +40,7 @@ class Tab2xml extends Tab2processor {
     }
 
     public function exportXML($kvplines){
-	$doc = new DOMDocument();
+	$doc = new DOMDocument('1.0','utf-8');
 	$root = $doc->createElement('records');
 	foreach($kvplines as $kv){
 	    $record = $doc->createElement('record');
