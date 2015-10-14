@@ -31,7 +31,7 @@ class Tab2xml extends Tab2processor {
     private function cleanFieldName($dirty) {
         $parens = array(" ", "(", ")");
         $clean  = $dirty;
-        $clean  = strtolower(str_replace(" ", "_", $clean);
+        $clean  = strtolower(str_replace(" ", "_", $clean));
         $clean  = str_replace("(", "-", $clean);
         $clean  = str_replace(")", "-", $clean);
         return $clean;
