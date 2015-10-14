@@ -18,11 +18,11 @@ class Tab2xml extends Tab2processor {
         $kvpLines   = array();
         $raw = file_get_contents($file->getRealPath());
         $lines = explode("\n", $raw);
-        $keys = explode("\t", array_shift($lines));
+        $keys = explode($this->separator, array_shift($lines));
         foreach($lines as $line){
             if(empty($line)) continue;
 
-            $values = explode("\t", $line);
+            $values = explode($this->separator, $line);
             $kvpLines[] = array_combine($keys, $values);
         }
         return $kvpLines;

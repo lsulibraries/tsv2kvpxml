@@ -4,7 +4,7 @@ abstract class Tab2processor {
 
     private $args;
     private $minArgs = 2;
-    public $src, $target;
+    public $src, $target, $separator;
 
     public function __construct($args){
         $this->args = $args;
@@ -15,8 +15,24 @@ abstract class Tab2processor {
             exit(0);
         }
 
-        $this->src     = new SplFileInfo($args[1]);
-        $this->target  = new SplFileInfo($args[2]);
+        $this->src       = new SplFileInfo($args[1]);
+        $this->target    = new SplFileInfo($args[2]);
+        $this->separator = isset($args[3]) ? $this->lookupSeparator($args[3]) : $this->lookupSeparator();
+    }
+
+    private function lookupSeparator($key = null) {
+        switch ($key) {
+            case 'pipe':
+                $key = '|';
+                break;
+            case 'tab':
+                $key = "\t";
+                break;
+            default:
+                $key = ',';
+                break;
+        }
+        return $key;
     }
 
     private function usage(){
