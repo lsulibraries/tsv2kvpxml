@@ -11,8 +11,7 @@ abstract class Tab2processor {
         // +1 since args[0] is always there.
         if(count($args) < $this->minArgs + 1){
             print $this->usage();
-	    var_dump($args);
-            exit(0);
+            exit(1);
         }
 
         $this->src       = new SplFileInfo($args[1]);
@@ -38,7 +37,8 @@ abstract class Tab2processor {
     private function usage(){
         $msg  = "";
         $msg .= sprintf("Not enough arguments.\n");
-        $msg .= sprintf("Usage:\n\tphp %s src-dir target-dir\n\n", $this->args[0]);
+        $msg .= sprintf("Usage:\n\tphp %s src-dir target-dir [separator]\n\n", $this->args[0]);
+        $msg .= sprintf("\tseparator: comma | pipe | tab       (defaults to comma)\n\n");
         return $msg;
     }
 
