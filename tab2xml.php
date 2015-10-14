@@ -28,6 +28,15 @@ class Tab2xml extends Tab2processor {
         return $kvpLines;
     }
 
+    private function cleanFieldName($dirty) {
+        $parens = array(" ", "(", ")");
+        $clean  = $dirty;
+        $clean  = strtolower(str_replace(" ", "_", $clean);
+        $clean  = str_replace("(", "-", $clean);
+        $clean  = str_replace(")", "-", $clean);
+        return $clean;
+    }
+
     public function exportXML($kvplines){
 	$doc = new DOMDocument();
 	$root = $doc->createElement('records');
@@ -35,7 +44,7 @@ class Tab2xml extends Tab2processor {
 	    $record = $doc->createElement('record');
 	    foreach($kv as $fieldname => $value){
 		try{
-		    $field = $doc->createElement(strtolower(str_replace(" ", "-", $fieldname)), htmlspecialchars($value));
+		    $field = $doc->createElement($this->cleanFieldName($fieldname), htmlspecialchars($value));
 		    $record->appendChild($field);
 		}catch(Exception $e){
 		    printf("\nProblem creating element '%s' with value '%s'\n", $fieldname, $value);
