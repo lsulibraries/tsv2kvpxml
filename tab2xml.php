@@ -34,6 +34,8 @@ class Tab2xml extends Tab2processor {
         $clean  = strtolower(str_replace(" ", "_", $clean));
         $clean  = str_replace("(", "-", $clean);
         $clean  = str_replace(")", "-", $clean);
+        $clean  = str_replace("/", "-", $clean);
+        $clean  = str_replace(":", "-", $clean);
         return $clean;
     }
 
