@@ -17,6 +17,7 @@ abstract class Tab2processor {
         $this->src       = new SplFileInfo($args[1]);
         $this->target    = new SplFileInfo($args[2]);
         $this->separator = isset($args[3]) ? $this->lookupSeparator($args[3]) : $this->lookupSeparator();
+        $this->mappings  = isset($args[4]) ? new SplFileInfo($args[4]) : false;
     }
 
     private function lookupSeparator($key = null) {
@@ -37,7 +38,7 @@ abstract class Tab2processor {
     private function usage(){
         $msg  = "";
         $msg .= sprintf("Not enough arguments.\n");
-        $msg .= sprintf("Usage:\n\tphp %s src-dir target-dir [separator]\n\n", $this->args[0]);
+        $msg .= sprintf("Usage:\n\tphp %s src-dir target-dir [separator] [mappings directory]\n\n", $this->args[0]);
         $msg .= sprintf("\tseparator: comma | pipe | tab       (defaults to comma)\n\n");
         return $msg;
     }
