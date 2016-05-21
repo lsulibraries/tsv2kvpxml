@@ -32,7 +32,7 @@ class testTab2XML extends PHPUnit_Framework_TestCase {
 
     public function testConstructor(){
         $this->assertEquals($this->src->getRealPath(),    $this->unit->src->getRealPath(),    "src directory was not initialized properly.\n");
-        $this->assertEquals($this->unit->target, $this->unit->target->getFilename(), "target directory was not initialized properly.\n");
+        $this->assertEquals($this->unit->output, $this->unit->output->getFilename(), "target directory was not initialized properly.\n");
 
         // @TODO make this testable
         //$noArgs = new Tab2xml(array('convert'));
@@ -40,9 +40,9 @@ class testTab2XML extends PHPUnit_Framework_TestCase {
 
 
     public function testEnsureDirExists(){
-        $this->assertTrue($this->unit->ensureDirExists($this->unit->target));
-        $this->assertFileExists($this->unit->target->getPathname());
-        rmdir($this->unit->target->getPathname());
+        $this->assertTrue($this->unit->ensureDirExists($this->unit->output));
+        $this->assertFileExists($this->unit->output->getPathname());
+        rmdir($this->unit->output->getPathname());
     }
 
     public function testProcessFile(){

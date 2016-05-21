@@ -3,8 +3,8 @@
 abstract class Tab2processor {
 
     private $args;
-    private $minArgs = 2;
-    public $src, $target, $separator;
+    private $minArgs = 1;
+    public $input, $output, $delimiter;
 
     public function __construct($args){
         $this->args = $args;

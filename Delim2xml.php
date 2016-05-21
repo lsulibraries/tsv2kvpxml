@@ -1,23 +1,16 @@
-#!/usr/bin/php
 <?php
 
-require_once 'lib.php';
+class Delim2xml {
 
-class Tab2xml extends Tab2processor {
+    public $delimiter, $delimited;
 
-    public function processDir(){
-        $this->ensureDirExists($this->output);
-        foreach($this->regularFiles($this->input) as $file){
-            $xml = $this->exportXML($this->extractKvp($file));
-	    $destination = $this->output.DIRECTORY_SEPARATOR.$file->getBasename($file->getExtension()).'xml';
-	    file_put_contents($destination, $xml);
-        }
+    public function __construct($delimiter){
+        $this->delimiter = $delimiter;
     }
 
-    public function extractKvp(SplFileInfo $file){
+    protected function extractKvp($delimited){
         $kvpLines   = array();
-        $raw = file_get_contents($file->getRealPath());
-        $lines = explode("\n", $raw);
+        $lines = explode("\n", $delimited);
         $keys = explode($this->delimiter, array_shift($lines));
         foreach($lines as $line){
             if(empty($line)) continue;
@@ -28,7 +21,7 @@ class Tab2xml extends Tab2processor {
         return $kvpLines;
     }
 
-    private function cleanFieldName($dirty) {
+    protected function sanitizeFieldName($dirty) {
         $parens = array(" ", "(", ")");
         $clean  = $dirty;
         $clean  = strtolower(str_replace(" ", "_", $clean));
@@ -39,14 +32,14 @@ class Tab2xml extends Tab2processor {
         return $clean;
     }
 
-    public function exportXML($kvplines){
+    public function getXML($delimited){
 	$doc = new DOMDocument('1.0','utf-8');
 	$root = $doc->createElement('records');
-	foreach($kvplines as $kv){
-	    $record = $doc->createElement('record');
+	foreach($this->extractKvp($delimited) as $kv){
+	    $record = $doc->createElement('xml');
 	    foreach($kv as $fieldname => $value){
 		try{
-		    $field = $doc->createElement($this->cleanFieldName($fieldname), htmlspecialchars($value));
+		    $field = $doc->createElement($this->sanitizeFieldName($fieldname), htmlspecialchars($value));
 		    $record->appendChild($field);
 		}catch(Exception $e){
 		    printf("\nProblem creating element '%s' with value '%s'\n", $fieldname, $value);
@@ -58,9 +51,8 @@ class Tab2xml extends Tab2processor {
 	    $root->appendChild($record);
 	}
 	$doc->appendChild($root);
+        $doc->formatOutput = true;
 	return $doc->saveXML();
     }
 }
 
-$t2x = new Tab2xml($argv);
-$t2x->processDir();

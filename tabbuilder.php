@@ -8,9 +8,9 @@ class Tabbuilder extends Tab2xml{
     public function processDir() {
 	
 	
-	    $this->ensureDirExists($this->target);
+	    $this->ensureDirExists($this->output);
 	    
-		foreach($this->regularFiles($this->src) as $file){
+		foreach($this->regularFiles($this->input) as $file){
 		    try{
 			$kvp = $this->extractKvp($file);
 			$this->mergeFields($kvp, $file);
@@ -24,7 +24,7 @@ class Tabbuilder extends Tab2xml{
 		}
 
 	    $tab = $this->buildTab();
-	    if(($handle = fopen($this->target.DIRECTORY_SEPARATOR.'out.txt','w')) != false){
+	    if(($handle = fopen($this->output.DIRECTORY_SEPARATOR.'out.txt','w')) != false){
 		fputcsv($handle, $this->fields, '|');
 		$rowcount = 0;
 		foreach($tab as $row){
