@@ -1,5 +1,10 @@
 <?php
 require_once 'Delim2xml.php';
+
+/**
+ * Simple Processor class that takes a single file given as CLI arg
+ * Echoes the result of transformation to xml.
+ */
 class Processor {
     
     public $minArgs = 1;
@@ -8,14 +13,14 @@ class Processor {
     public $delimited;
     
     public function __construct($options = array()) {
-        $this->checkOptions($options);
+        $this->options = $options;
+        $this->initialize($options);
         $delimiter = $this->lookupSeparator($this->getOpt('delimiter'));
-        $this->d2x = new Delim2xml($delimiter);
+        $Delim2xmlClass = $this->getOpt('Delim2xmlClass');
+        $this->d2x = new $Delim2xmlClass($delimiter);
     }
 
-    protected function checkOptions($options){
-        $this->options = $options;
-
+    protected function initialize(){
         $file = $this->getOpt('input_file');
         if(!file_exists($file)){
             throw new Exception(sprintf("Input file %s does not exist.", $file));

@@ -8,10 +8,15 @@ class Delim2xml {
         $this->delimiter = $delimiter;
     }
 
-    protected function extractKvp($delimited){
+    protected function mapKeys($raw_keys, $keyMap){
+        return $raw_keys;
+    }
+
+    protected function extractKvp($delimited, $keyMap = array()){
         $kvpLines   = array();
         $lines = explode("\n", $delimited);
-        $keys = explode($this->delimiter, array_shift($lines));
+        $raw_keys = explode($this->delimiter, array_shift($lines));
+        $keys = $this->mapKeys($raw_keys, $keyMap);
         foreach($lines as $line){
             if(empty($line)) continue;
 
@@ -32,10 +37,10 @@ class Delim2xml {
         return $clean;
     }
 
-    public function getXML($delimited){
+    public function getXML($delimited, $keyMap = array()){
 	$doc = new DOMDocument('1.0','utf-8');
 	$root = $doc->createElement('records');
-	foreach($this->extractKvp($delimited) as $kv){
+	foreach($this->extractKvp($delimited, $keyMap) as $kv){
 	    $record = $doc->createElement('xml');
 	    foreach($kv as $fieldname => $value){
 		try{
