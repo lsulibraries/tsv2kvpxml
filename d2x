@@ -1,3 +1,5 @@
+#!/usr/bin/php
+
 <?php
 require_once 'Processor.php';
 require_once 'DirectoryProcessor.php';
@@ -20,6 +22,8 @@ if(array_key_exists('processorClass', $options)){
 }
 if(array_key_exists('Delim2xmlClass', $options)){
     $Delim2xmlClass = $options['Delim2xmlClass'];
+}else {
+    $options['Delim2xmlClass'] = $Delim2xmlClass;
 }
 $processor = new $processorClass($options);
 

@@ -49,11 +49,11 @@ class Processor {
             case 'pipe':
                 $key = '|';
                 break;
-            case 'tab':
-                $key = "\t";
+            case 'comma':
+                $key = ",";
                 break;
             default:
-                $key = ',';
+                $key = "\t";
                 break;
         }
         return $key;
